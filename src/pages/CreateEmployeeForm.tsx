@@ -10,6 +10,13 @@ import {Select, SelectContent, SelectItem, SelectTrigger} from "@/components/ui/
 import {SelectValue} from "@radix-ui/react-select";
 import {z} from "zod";
 import {useEmployees} from "@/hooks/EmployeesContext.tsx";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog"
 
 export default function CreateEmployeeForm() {
 
@@ -63,6 +70,7 @@ export default function CreateEmployeeForm() {
 		department: "",
 	})
 	const { addEmployee } = useEmployees()
+	const [dialogOpen, setDialogOpen] = useState(false)
 
 	const onSubmit = (e) => {
 		e.preventDefault()
@@ -89,6 +97,7 @@ export default function CreateEmployeeForm() {
 			});
 
 			addEmployee(formData)
+			setDialogOpen(true)
 		} catch (e) {
 			if (e instanceof z.ZodError) {
 				const fieldErrors = errors
@@ -116,6 +125,16 @@ export default function CreateEmployeeForm() {
 			<Header />
 			<main className={"max-w-5xl mx-auto"}>
 				<NavBar/>
+				<Dialog open={dialogOpen}>
+					<DialogContent onClick={e => setDialogOpen(!e)}>
+						<DialogHeader>
+							<DialogTitle>Congratulations</DialogTitle>
+							<DialogDescription>
+								You have successfully created an employee
+							</DialogDescription>
+						</DialogHeader>
+					</DialogContent>
+				</Dialog>
 				<section>
 					<h2 className={"text-center text-4xl font-bold mb-4"}>Create employee</h2>
 						<form onSubmit={onSubmit}>
