@@ -1,4 +1,4 @@
-import {createContext, useContext, useState} from "react";
+import {createContext, useEffect, useState} from "react";
 import newEmployees from "@/assets/employees.json";
 
 export interface IEmployee {
@@ -26,14 +26,24 @@ const EmployeesProvider = ({children}: any) => {
 
 	const addEmployee = (employee: IEmployee) => {
 		setEmployees([...employees, employee]);
+		localStorage.setItem('employees', JSON.stringify([...employees, employee]));
 	}
 
 	const populateEmployees = () => {
 		const mookarooEmployees = newEmployees as IEmployee[];
 		const totalEmployees = [...employees, ...mookarooEmployees]
 		setEmployees(totalEmployees);
+		// add to local storage for persistence
+		localStorage.setItem('employees', JSON.stringify(totalEmployees));
 		return totalEmployees;
 	}
+
+	useEffect(() => {
+		const localStorageEmployees = localStorage.getItem('employees');
+		if (localStorageEmployees) {
+			setEmployees(JSON.parse(localStorageEmployees));
+		}
+	}, []);
 
 	const contextValue = {
 		employees,
@@ -48,12 +58,4 @@ const EmployeesProvider = ({children}: any) => {
 	)
 }
 
-const useEmployees = () => {
-	const context = useContext(EmployeesContext);
-	if (context === undefined) {
-		throw new Error('useEmployees must be used within an EmployeesProvider');
-	}
-	return context;
-};
-
-export { EmployeesProvider, useEmployees };
+export { EmployeesProvider, EmployeesContext };

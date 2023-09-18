@@ -1,6 +1,7 @@
 import Header from "@/components/header.tsx";
 import NavBar from "@/components/navbar.tsx";
-import {IEmployee, useEmployees} from "@/hooks/EmployeesContext.tsx";
+import {IEmployee} from "@/hooks/EmployeesContext.tsx";
+import {useEmployees} from "@/hooks/useEmployees.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {
 	createColumnHelper,
@@ -20,7 +21,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table"
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Input} from "@/components/ui/input.tsx";
 
 function EmployeesList() {

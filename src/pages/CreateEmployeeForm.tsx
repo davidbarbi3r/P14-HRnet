@@ -9,7 +9,7 @@ import {Label} from "@/components/ui/label.tsx";
 import {Select, SelectContent, SelectItem, SelectTrigger} from "@/components/ui/select.tsx";
 import {SelectValue} from "@radix-ui/react-select";
 import {z} from "zod";
-import {useEmployees} from "@/hooks/EmployeesContext.tsx";
+import {useEmployees} from "@/hooks/useEmployees.tsx";
 import {
 	Dialog,
 	DialogContent,
