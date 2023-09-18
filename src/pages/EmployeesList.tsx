@@ -138,7 +138,7 @@ function EmployeesList() {
 				<section>
 					<h1 className={"text-2xl font-bold"}>Employees List</h1>
 					<div className={"flex flex-col"}>
-						<Button onClick={() => populateEmployees()} className={"w-fit"}>
+						<Button onClick={() => populateEmployees()} className={"w-fit my-4"}>
 							Populate database
 						</Button>
 						<div className="flex items-center py-4">
