@@ -1,6 +1,7 @@
 import {createContext, useContext, useState} from "react";
+import newEmployees from "@/assets/employees.json";
 
-interface IEmployee {
+export interface IEmployee {
 	firstName: string,
 	lastName: string,
 	birthDate: string,
@@ -15,7 +16,7 @@ interface IEmployee {
 export interface IEmployeesContext {
 	employees: IEmployee[],
 	addEmployee: (employee: IEmployee) => void,
-	populateEmployees: (employees: IEmployee[]) => void,
+	populateEmployees: () => IEmployee[],
 }
 
 const EmployeesContext = createContext({} as IEmployeesContext);
@@ -27,8 +28,11 @@ const EmployeesProvider = ({children}: any) => {
 		setEmployees([...employees, employee]);
 	}
 
-	const populateEmployees = (newEmployees: IEmployee[]) => {
-		setEmployees([...employees, ...newEmployees]);
+	const populateEmployees = () => {
+		const mookarooEmployees = newEmployees as IEmployee[];
+		const totalEmployees = [...employees, ...mookarooEmployees]
+		setEmployees(totalEmployees);
+		return totalEmployees;
 	}
 
 	const contextValue = {

@@ -9,6 +9,7 @@ import {Label} from "@/components/ui/label.tsx";
 import {Select, SelectContent, SelectItem, SelectTrigger} from "@/components/ui/select.tsx";
 import {SelectValue} from "@radix-ui/react-select";
 import {z} from "zod";
+import {useEmployees} from "@/hooks/EmployeesContext.tsx";
 
 export default function CreateEmployeeForm() {
 
@@ -61,6 +62,7 @@ export default function CreateEmployeeForm() {
 		zip: "30000",
 		department: "",
 	})
+	const { addEmployee } = useEmployees()
 
 	const onSubmit = (e) => {
 		e.preventDefault()
@@ -86,7 +88,7 @@ export default function CreateEmployeeForm() {
 				department: "",
 			});
 
-			console.log("valid form data")
+			addEmployee(formData)
 		} catch (e) {
 			if (e instanceof z.ZodError) {
 				const fieldErrors = errors
@@ -100,8 +102,6 @@ export default function CreateEmployeeForm() {
 				}));
 			}
 		}
-
-		console.log(formData)
 	}
 	const departmentOptions = [
 		"Sales",
