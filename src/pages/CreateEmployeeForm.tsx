@@ -72,7 +72,7 @@ export default function CreateEmployeeForm() {
 	const { addEmployee } = useEmployees()
 	const [dialogOpen, setDialogOpen] = useState(false)
 
-	const onSubmit = (e) => {
+	const onSubmit = (e: Event) => {
 		e.preventDefault()
 		const formData = {
 			...employeeForm,
@@ -103,6 +103,7 @@ export default function CreateEmployeeForm() {
 				const fieldErrors = errors
 				e.errors.forEach((validationError) => {
 					// Set error messages for the corresponding fields
+					// @ts-ignore
 					fieldErrors[validationError.path[0]] = validationError.message;
 				});
 				setErrors(prevState => ({
@@ -375,26 +376,11 @@ export default function CreateEmployeeForm() {
 									</FormItem>
 								</div>
 							</div>
-							<Button type="submit">Submit</Button>
+							<div className={"w-full text-center pt-2 pb-4"}>
+								<Button type="submit">Submit</Button>
+							</div>
 						</form>
-						<div className={"w-full text-center pt-2 pb-4"}>
-						</div>
-{/*
-					</Form>
-*/}
 				</section>
-				{/*<form onSubmit={(e) => {
-					e.preventDefault()
-					// console log the form data
-					const formData = new FormData(e.currentTarget)
-					for (const entry of formData.entries()) {
-						console.log(entry[0], entry[1]);
-					}
-					console.log(JSON.stringify(formData))
-				}}>
-					<GnarlyDatePicker/>
-					<button type={"submit"}>Submit</button>
-				</form>*/}
 			</main>
 		</>
 	)
