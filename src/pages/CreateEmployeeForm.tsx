@@ -1,7 +1,7 @@
 import {GnarlyDatePicker} from "gnarly-date-picker";
 import Header from "@/components/header.tsx";
 import NavBar from "@/components/navbar.tsx";
-import {useState} from "react";
+import {FormEvent, useState} from "react";
 import {Button} from "@/components/ui/button.tsx";
 import {FormItem} from "@/components/ui/form.tsx";
 import {Input} from "@/components/ui/input.tsx";
@@ -72,7 +72,7 @@ export default function CreateEmployeeForm() {
 	const { addEmployee } = useEmployees()
 	const [dialogOpen, setDialogOpen] = useState(false)
 
-	const onSubmit = (e: Event) => {
+	const onSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		const formData = {
 			...employeeForm,
@@ -138,7 +138,7 @@ export default function CreateEmployeeForm() {
 				</Dialog>
 				<section>
 					<h2 className={"text-center text-4xl font-bold mb-4"}>Create employee</h2>
-						<form onSubmit={onSubmit}>
+						<form onSubmit={(e) => onSubmit(e)}>
 							<div className={"gap-4 p-4 lg:px-0 flex flex-col md:flex-row justify-between align-top"}>
 								<div className={"w-full md:w-1/2"}>
 									<h3 className={"font-bold text-2xl"}>Personal</h3>
